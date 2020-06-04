@@ -1,6 +1,8 @@
+package org.pih.warehouse
 import grails.validation.ValidationException
-import org.apache.http.auth.AuthenticationException
 import org.hibernate.ObjectNotFoundException
+
+import javax.naming.AuthenticationException
 
 /**
  * Copyright (c) 2012 Partners In Health.  All rights reserved.
@@ -12,6 +14,7 @@ import org.hibernate.ObjectNotFoundException
  * You must not remove this notice, or any other, from this software.
  **/
 class UrlMappings {
+
     static mappings = {
 
         "/snapshot/$action?"(controller: "inventorySnapshot")
@@ -250,3 +253,4 @@ class UrlMappings {
 
 
 }
+

@@ -68,9 +68,7 @@ dependencies {
     compile 'c3p0:c3p0:0.9.1.1'
 
     // Required by docx4j functionality
-    compile('org.docx4j:docx4j:2.8.1') {
-        excludes 'commons-logging:commons-logging:1.0.4', 'commons-codec', 'commons-io'
-    }
+    compile('org.docx4j:docx4j:2.8.1')
 
     // Required for barcode4j
     compile 'com.google.zxing:javase:2.0'
@@ -89,7 +87,7 @@ dependencies {
     // Required by rendering plugin (NoClassDefFoundError: org/springframework/mock/web/MockHttpServletRequest)
     // and also for the SendStockAlertsJob which needs to use the GSP template engine
     runtime 'org.springframework:spring-test:3.0.5.RELEASE'
-    test 'dumbster:dumbster:1.6'
+//    test 'dumbster:dumbster:1.6'
 
     // Required for GPars
     compile "org.codehaus.gpars:gpars:0.12"
@@ -97,13 +95,13 @@ dependencies {
     compile "org.codehaus.jsr166-mirror:extra166y:1.7.0"
 
     // Unknown
-    build('org.jboss.tattletale:tattletale-ant:1.2.0.Beta2') { excludes "ant", "javassist" }
-    compile('org.codehaus.groovy.modules.http-builder:http-builder:0.6') {
-        excludes "xercesImpl", "groovy", "commons-lang", "commons-codec"
-    }
+//    build('org.jboss.tattletale:tattletale-ant:1.2.0.Beta2')
+    compile('org.codehaus.groovy.modules.http-builder:http-builder:0.6')
 
     // REST client
     compile 'org.apache.httpcomponents:httpclient:4.5.12'
+
+    compile 'org.liquibase:liquibase-core:3.5.5'
 }
 
 bootRun {

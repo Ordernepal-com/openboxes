@@ -9,11 +9,10 @@
  **/
 package org.pih.warehouse.core
 
-import org.codehaus.groovy.grails.commons.GrailsApplication
 
 class UploadService {
 
-    GrailsApplication grailsApplication
+    def grailsApplication
     FileService fileService
 
     boolean transactional = false
