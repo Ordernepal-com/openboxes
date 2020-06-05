@@ -18,7 +18,6 @@ import java.text.SimpleDateFormat
 class FormatTagLib {
 
     static namespace = "format"
-    def grailsApplication
 
     /**
      * Formats a Date

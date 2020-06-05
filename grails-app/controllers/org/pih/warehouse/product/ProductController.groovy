@@ -12,8 +12,8 @@ package org.pih.warehouse.product
 import com.google.zxing.BarcodeFormat
 import grails.converters.JSON
 import grails.validation.ValidationException
+import grails.web.context.ServletContextHolder
 import org.apache.commons.io.FilenameUtils
-import org.codehaus.groovy.grails.web.context.ServletContextHolder
 import org.hibernate.Criteria
 import org.pih.warehouse.core.Document
 import org.pih.warehouse.core.Location

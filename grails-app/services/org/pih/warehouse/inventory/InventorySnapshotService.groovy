@@ -13,7 +13,6 @@ import groovy.sql.BatchingStatementWrapper
 import groovy.sql.Sql
 import groovyx.gpars.GParsPool
 import org.apache.commons.lang.StringEscapeUtils
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
 import org.hibernate.Criteria
 import org.pih.warehouse.api.AvailableItem
 import org.pih.warehouse.core.ApplicationExceptionEvent
@@ -183,7 +182,7 @@ class InventorySnapshotService {
 
     def saveInventorySnapshots(Date date, Location location, List binLocations) {
         def startTime = System.currentTimeMillis()
-        def batchSize = ConfigurationHolder.config.openboxes.inventorySnapshot.batchSize ?: 1000
+        def batchSize = grailsApplication.config.openboxes.inventorySnapshot.batchSize ?: 1000
         Sql sql = new Sql(dataSource)
 
 

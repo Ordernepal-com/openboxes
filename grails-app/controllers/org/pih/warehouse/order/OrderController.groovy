@@ -11,8 +11,8 @@ package org.pih.warehouse.order
 
 import grails.converters.JSON
 import grails.validation.ValidationException
+import liquibase.util.csv.CSVWriter
 import org.apache.commons.lang.StringEscapeUtils
-import org.grails.plugins.csv.CSVWriter
 import org.pih.warehouse.core.Comment
 import org.pih.warehouse.core.Constants
 import org.pih.warehouse.core.Document

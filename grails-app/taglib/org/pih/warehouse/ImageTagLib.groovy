@@ -14,8 +14,6 @@ import org.pih.warehouse.core.Location
 
 class ImageTagLib {
 
-    def grailsApplication
-
     // Cannot cache logo because it might change between locations
     def displayLogo = { attrs, body ->
 

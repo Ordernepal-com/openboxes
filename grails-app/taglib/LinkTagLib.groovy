@@ -1,11 +1,11 @@
-import org.codehaus.groovy.grails.plugins.web.taglib.ApplicationTagLib
+import org.grails.plugins.web.taglib.ApplicationTagLib
 
 class LinkTagLib extends ApplicationTagLib {
 
     static namespace = "g"
     def userService
 
-    def link = { attrs, body ->
+    Closure link = { attrs, body ->
 
         boolean disabled = attrs.disabled ?: false
         String disabledMessage = attrs.disabledMessage ?: 'Access denied'
@@ -22,7 +22,7 @@ class LinkTagLib extends ApplicationTagLib {
             }
         }
 
-        def applicationTagLib = grailsApplication.mainContext.getBean('org.codehaus.groovy.grails.plugins.web.taglib.ApplicationTagLib')
+        def applicationTagLib = grailsApplication.mainContext.getBean('org.grails.plugins.web.taglib.ApplicationTagLib')
         applicationTagLib.link.call(attrs, body)
     }
 }

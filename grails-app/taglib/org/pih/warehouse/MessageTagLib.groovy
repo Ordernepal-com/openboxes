@@ -18,7 +18,6 @@ import java.text.MessageFormat
 class MessageTagLib {
 
     static namespace = "warehouse"
-    def grailsApplication
     def messageSource
 
     def message = { attrs, body ->

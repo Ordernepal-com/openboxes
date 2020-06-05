@@ -9,8 +9,8 @@
  **/
 package org.pih.warehouse.jobs
 
+import grails.core.GrailsApplication
 import groovyx.gpars.GParsPool
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
 import org.pih.warehouse.core.ActivityCode
 import org.pih.warehouse.core.Location
 import org.pih.warehouse.core.RoleType
@@ -19,13 +19,13 @@ import org.quartz.JobExecutionContext
 class SendStockAlertsJob {
 
     def concurrent = false
-    def grailsApplication
+    GrailsApplication grailsApplication
     def locationService
     def notificationService
 
     static triggers = {
         cron name: 'sendStockAlertsCronTrigger',
-                cronExpression: ConfigurationHolder.config.openboxes.jobs.sendStockAlertsJob.cronExpression
+                cronExpression: grailsApplication.config.openboxes.jobs.sendStockAlertsJob.cronExpression
     }
 
     def execute(JobExecutionContext context) {

@@ -9,12 +9,10 @@
  **/
 package org.pih.warehouse.core
 
-import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException
 import org.apache.commons.lang.RandomStringUtils
 import org.apache.commons.lang.StringUtils
 import org.apache.commons.lang.WordUtils
 import org.apache.commons.text.StringSubstitutor
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
 import org.hibernate.ObjectNotFoundException
 import org.pih.warehouse.inventory.Transaction
 import org.pih.warehouse.order.Order
@@ -123,8 +121,8 @@ class IdentifierService {
     }
 
     def generateOrganizationIdentifier(String name) {
-        Integer minSize = ConfigurationHolder.config.openboxes.identifier.organization.minSize
-        Integer maxSize = ConfigurationHolder.config.openboxes.identifier.organization.maxSize
+        Integer minSize = grailsApplication.config.openboxes.identifier.organization.minSize
+        Integer maxSize = grailsApplication.config.openboxes.identifier.organization.maxSize
 
         // Clean up string by removing everything after command
         name = name.split(",")[0].capitalize()
@@ -183,8 +181,6 @@ class IdentifierService {
                         println product.errors
                     }
                 }
-            } catch (MySQLIntegrityConstraintViolationException e) {
-                log.warn("Unable to assign identifier due to constraint violation: " + e.message, e)
             } catch (Exception e) {
                 log.warn("Unable to assign identifier to product with ID " + product?.id + ": " + e.message, e)
             }

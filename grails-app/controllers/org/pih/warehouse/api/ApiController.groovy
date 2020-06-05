@@ -24,7 +24,6 @@ class ApiController {
     def dataSource
     def userService
     def localizationService
-    def grailsApplication
 
     def login = {
         def username = request.JSON.username

@@ -9,10 +9,13 @@
  **/
 package org.pih.warehouse.core
 
+import grails.artefact.DomainClass
+
 class OrganizationController {
 
     def identifierService
-    def scaffold = true
+    static scaffold = DomainClass
+
 
     def search = {
 

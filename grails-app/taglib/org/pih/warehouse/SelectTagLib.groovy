@@ -9,8 +9,7 @@
  **/
 package org.pih.warehouse
 
-import grails.plugin.springcache.annotations.Cacheable
-import org.codehaus.groovy.grails.commons.DomainClassArtefactHandler
+import org.grails.core.artefact.DomainClassArtefactHandler
 import org.pih.warehouse.core.ActivityCode
 import org.pih.warehouse.core.Constants
 import org.pih.warehouse.core.Location
@@ -55,7 +54,6 @@ class SelectTagLib {
     def shipmentService
     def requisitionService
 
-    @Cacheable("selectCategoryCache")
     def selectCategory = { attrs, body ->
         attrs.from = Category.list().sort() // { it.name }
         attrs.optionKey = "id"
@@ -105,7 +103,6 @@ class SelectTagLib {
         out << g.select(attrs)
     }
 
-    @Cacheable("selectTagCache")
     def selectTag = { attrs, body ->
         def tags = Tag.list(sort: "tag").collect {
             [id: it.id, name: it.tag, productCount: it?.products?.size()]
@@ -117,7 +114,6 @@ class SelectTagLib {
         out << g.select(attrs)
     }
 
-    @Cacheable("selectTagsCache")
     def selectTags = { attrs, body ->
         def tags = Tag.list(sort: "tag").collect {
             [id: it.id, name: it.tag, productCount: it?.products?.size()]
@@ -130,7 +126,6 @@ class SelectTagLib {
         out << g.select(attrs)
     }
 
-    @Cacheable("selectCatalogsCache")
     def selectCatalogs = { attrs, body ->
         def catalogs = ProductCatalog.list(sort: "name").collect {
             [id: it.id, name: it.name, productCount: it?.productCatalogItems?.size()]

@@ -13,7 +13,6 @@ import org.apache.commons.mail.ByteArrayDataSource
 import org.apache.commons.mail.EmailAttachment
 import org.apache.commons.mail.HtmlEmail
 import org.apache.commons.mail.SimpleEmail
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
 
 import javax.mail.internet.InternetAddress
 
@@ -22,7 +21,7 @@ class MailService {
     boolean transactional = false
     def userService
     def grailsApplication
-    def config = ConfigurationHolder.config
+    def config = grailsApplication.config
 
     String getDefaultFrom() {
         return config.grails.mail.from

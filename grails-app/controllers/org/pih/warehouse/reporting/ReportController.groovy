@@ -10,9 +10,8 @@
 package org.pih.warehouse.reporting
 
 import grails.converters.JSON
-import grails.plugin.springcache.annotations.CacheFlush
+import liquibase.util.csv.opencsv.CSVWriter
 import org.apache.commons.lang.StringEscapeUtils
-import org.grails.plugins.csv.CSVWriter
 import org.pih.warehouse.api.StockMovement
 import org.pih.warehouse.api.StockMovementItem
 import org.pih.warehouse.core.Location
@@ -381,7 +380,6 @@ class ReportController {
         }
     }
 
-    @CacheFlush(["binLocationReportCache", "binLocationSummaryCache"])
     def clearBinLocationCache = {
         flash.message = "Cache have been flushed"
         redirect(action: "showBinLocationReport")

@@ -14,7 +14,7 @@ class FormatNumberTagLib {
 
     def formatNumber = { attrs ->
         //my changes in tag's behaviour
-        org.codehaus.groovy.grails.plugins.web.taglib.FormatTagLib formatTagLib = grailsAttributes.applicationContext.getBean('org.codehaus.groovy.grails.plugins.web.taglib.FormatTagLib')
+        org.grails.plugins.web.taglib.FormatTagLib formatTagLib = grailsAttributes.applicationContext.getBean('org.grails.plugins.web.taglib.FormatTagLib')
 
         out << formatTagLib.formatNumber.call(attrs)
     }

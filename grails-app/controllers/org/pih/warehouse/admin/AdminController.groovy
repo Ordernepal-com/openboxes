@@ -10,8 +10,7 @@
 package org.pih.warehouse.admin
 
 import grails.util.GrailsUtil
-import net.sf.ehcache.Cache
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
+import org.hibernate.Cache
 import org.pih.warehouse.core.MailService
 import org.pih.warehouse.jobs.SendStockAlertsJob
 import org.springframework.web.multipart.MultipartFile
@@ -28,8 +27,7 @@ class AdminController {
 
     def sessionFactory // inject Hibernate sessionFactory
     MailService mailService
-    def grailsApplication
-    def config = ConfigurationHolder.config
+    def config = grailsApplication.config
     def quartzScheduler
     def springcacheService
     def dataService

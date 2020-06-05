@@ -21,7 +21,6 @@ import org.pih.warehouse.core.Constants
 class DocumentController {
 
     def fileService
-    def grailsApplication
     def templateService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]

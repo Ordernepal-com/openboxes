@@ -9,12 +9,11 @@
  **/
 package org.pih.warehouse.inventory
 
-import org.codehaus.groovy.grails.validation.Validateable
+import grails.validation.Validateable
 import org.pih.warehouse.core.Location
 import org.pih.warehouse.order.Order
 
-@Validateable
-class TransferStockCommand {
+class TransferStockCommand implements Validateable {
 
     Integer quantity = 0
     InventoryItem inventoryItem

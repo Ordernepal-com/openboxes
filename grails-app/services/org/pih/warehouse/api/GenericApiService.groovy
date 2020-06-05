@@ -9,11 +9,10 @@
  **/
 package org.pih.warehouse.api
 
+import grails.core.GrailsDomainClass
 import grails.validation.ValidationException
-import org.codehaus.groovy.grails.commons.GrailsApplication
-import org.codehaus.groovy.grails.commons.GrailsDomainClass
-import org.codehaus.groovy.grails.web.json.JSONArray
-import org.codehaus.groovy.grails.web.json.JSONObject
+import org.grails.web.json.JSONArray
+import org.grails.web.json.JSONObject
 import org.hibernate.ObjectNotFoundException
 import org.hibernate.SessionFactory
 import org.hibernate.criterion.Criterion
@@ -24,7 +23,7 @@ class GenericApiService {
     boolean transactional = true
 
     SessionFactory sessionFactory
-    GrailsApplication grailsApplication
+    def grailsApplication
 
     GrailsDomainClass getDomainClassByName(String className) {
         GrailsDomainClass grailsDomainClass = grailsApplication.domainClasses.find {

@@ -10,8 +10,8 @@
 package org.pih.warehouse.requisition
 
 import grails.validation.ValidationException
+import liquibase.util.csv.opencsv.CSVWriter
 import org.apache.commons.lang.StringEscapeUtils
-import org.grails.plugins.csv.CSVWriter
 import org.pih.warehouse.core.Location
 import org.pih.warehouse.inventory.InventoryItem
 import org.pih.warehouse.picklist.Picklist

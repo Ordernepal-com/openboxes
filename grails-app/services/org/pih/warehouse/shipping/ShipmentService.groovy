@@ -9,13 +9,13 @@
  **/
 package org.pih.warehouse.shipping
 
+import grails.core.GrailsApplication
 import grails.validation.ValidationException
 import org.apache.commons.validator.EmailValidator
 import org.apache.poi.hssf.usermodel.HSSFSheet
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
 import org.apache.poi.ss.usermodel.Cell
 import org.apache.poi.ss.usermodel.Row
-import org.codehaus.groovy.grails.commons.GrailsApplication
 import org.hibernate.FetchMode
 import org.pih.warehouse.core.ActivityCode
 import org.pih.warehouse.core.Comment

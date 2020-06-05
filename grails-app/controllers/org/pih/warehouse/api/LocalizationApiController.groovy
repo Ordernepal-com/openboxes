@@ -16,7 +16,6 @@ class LocalizationApiController {
 
     def messageSource
     def localizationService
-    def grailsApplication
 
     def list = {
         String languageCode = params.lang

@@ -9,7 +9,8 @@
  **/
 package org.pih.warehouse.jobs
 
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
+import grails.core.GrailsApplication
+import grails.util.Holders
 import org.pih.warehouse.core.Location
 import org.quartz.DisallowConcurrentExecution
 import org.quartz.JobExecutionContext
@@ -19,7 +20,7 @@ import org.quartz.JobExecutionException
 class RefreshInventorySnapshotJob {
 
     def concurrent = false
-    def grailsApplication
+    GrailsApplication grailsApplication
     def inventorySnapshotService
 
     // Should never be triggered on a schedule - should only be triggered by persistence event listener
@@ -27,14 +28,14 @@ class RefreshInventorySnapshotJob {
 
     def execute(JobExecutionContext context) {
 
-        Boolean enabled = ConfigurationHolder.config.openboxes.jobs.refreshInventorySnapshotJob.enabled
+        Boolean enabled = grailsApplication.config.openboxes.jobs.refreshInventorySnapshotJob.enabled
         log.info("Refresh inventory snapshots with data (enabled=${enabled}): " + context.mergedJobDataMap)
         if (enabled) {
 
             def jobDataMap = context.jobDetail.jobDataMap
             Integer retryCount = jobDataMap.containsKey("retryCount") ? jobDataMap.getIntFromString("retryCount"):0
-            Integer maxRetryAttempts = ConfigurationHolder.config.openboxes.jobs.refreshInventorySnapshotJob.maxRetryAttempts?:3
-            Boolean retryOnError = ConfigurationHolder.config.openboxes.jobs.refreshInventorySnapshotJob.retryOnError?:false
+            Integer maxRetryAttempts = grailsApplication.config.openboxes.jobs.refreshInventorySnapshotJob.maxRetryAttempts?:3
+            Boolean retryOnError = grailsApplication.config.openboxes.jobs.refreshInventorySnapshotJob.retryOnError?:false
             if (retryOnError) {
                 log.info "Retry count: ${retryCount} / ${maxRetryAttempts}"
                 if (retryOnError && retryCount >= maxRetryAttempts) {

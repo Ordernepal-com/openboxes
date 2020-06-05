@@ -9,7 +9,7 @@
  **/
 package org.pih.warehouse.core
 
-
+import grails.core.GrailsApplication
 import org.apache.poi.hssf.usermodel.HSSFSheet
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
 import org.apache.poi.ss.usermodel.Cell
@@ -20,7 +20,6 @@ import org.apache.poi.ss.usermodel.Row
 import org.apache.poi.ss.usermodel.Sheet
 import org.apache.poi.ss.usermodel.Workbook
 import org.apache.poi.ss.util.CellRangeAddress
-import org.codehaus.groovy.grails.commons.ApplicationHolder
 import org.docx4j.TextUtils
 import org.docx4j.XmlUtils
 import org.docx4j.convert.out.pdf.PdfConversion
@@ -46,7 +45,6 @@ import org.docx4j.wml.TcPr
 import org.docx4j.wml.Text
 import org.docx4j.wml.Tr
 import org.docx4j.wml.TrPr
-import org.groovydev.SimpleImageBuilder
 import org.pih.warehouse.api.Stocklist
 import org.pih.warehouse.requisition.RequisitionItem
 import org.pih.warehouse.requisition.RequisitionItemSortByCode
@@ -60,7 +58,7 @@ import java.text.SimpleDateFormat
 
 class DocumentService {
 
-    def grailsApplication
+    GrailsApplication grailsApplication
     def userService
     boolean transactional = false
 
@@ -99,7 +97,7 @@ class DocumentService {
             def extension = document.extension ?: document.filename.substring(document.filename.lastIndexOf(".") + 1)
             log.info "Scale image " + document.filename + " (" + width + ", " + height + "), format=" + extension
             fileInputStream = new FileInputStream(file)
-            def builder = new SimpleImageBuilder()
+            def builder = null
             if (builder) {
                 def result = builder.image(stream: fileInputStream) {
                     fit(width: width, height: height) {
@@ -125,7 +123,7 @@ class DocumentService {
      */
     File findFile(String filePath) {
         def file
-        def appContext = ApplicationHolder.application.parentContext
+        def appContext = grailsApplication.getParentContext()
         def archiveDirectory = filePath
         if (ApplicationHolder.application.isWarDeployed()) {
             archiveDirectory = "classpath:$filePath"

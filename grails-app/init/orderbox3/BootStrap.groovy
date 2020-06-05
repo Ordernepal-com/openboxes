@@ -2,6 +2,7 @@ package orderbox3
 
 import grails.converters.JSON
 import grails.util.Environment
+import liquibase.Liquibase
 import org.pih.warehouse.api.AvailableItem
 import org.pih.warehouse.api.EditPageItem
 import org.pih.warehouse.api.PackPageItem
@@ -386,61 +387,6 @@ class BootStrap {
         JSON.registerObjectMarshaller(StocklistItem) { StocklistItem stocklistItem ->
             return stocklistItem.toJson()
         }
-
-
-        // ================================    Static Data    ============================================
-        //
-        // Use the 'demo' environment to create a database with 'static' and 'demo' data.  Then
-        // run the following:
-        //
-        // 		$ grails -Dgrails.env=demo run-app
-        //
-        // In another terminal, run through these commands to generate the appropriate
-        // changelog files for a new version of the data model
-        //
-        // 		$ grails db-diff-schema > grails-app/migrations/x.x.x/changelog-initial-schema.xml
-        // 		$ grails db-diff-index > grails-app/migrations/x.x.x/changelog-initial-indexes.xml
-        // 		$ grails db-diff-data > grails-app/migrations/x.x.x/changelog-initial-data.xml
-        //
-        // Migrating existing data to the new data model is still a work in progress, but you can
-        // use the previous versions changelogs.
-        //
-        log.info("Running liquibase changelog(s) ...")
-        Liquibase liquibase = null
-        try {
-
-            def connection = dataSource.getConnection()
-            if (connection == null) {
-                throw new RuntimeException("Connection could not be created.")
-            }
-            def classLoader = getClass().classLoader
-            def fileOpener = classLoader.loadClass("org.liquibase.grails.GrailsFileOpener").getConstructor().newInstance()
-
-            def database = DatabaseFactory.getInstance().findCorrectDatabaseImplementation(connection)
-            boolean isRunningMigrations = LiquibaseUtil.isRunningMigrations()
-            log.info("Liquibase running: " + isRunningMigrations)
-            log.info("Setting default schema to " + connection.catalog)
-            log.info("Product Version: " + database.databaseProductVersion)
-            log.info("Database Version: " + database.databaseMajorVersion + "." + database.databaseMinorVersion)
-            def ranChangeSets = database.getRanChangeSetList()
-            database.setDefaultSchemaName(connection.catalog)
-
-            //If nothing has been created yet, let's create all new database objects with the install scripts
-            if (!ranChangeSets) {
-                liquibase = new Liquibase("install/install.xml", fileOpener, database)
-                liquibase.update(null)
-            }
-
-            // Run through the updates in the master changelog
-            liquibase = new Liquibase("changelog.xml", fileOpener, database)
-            liquibase.update(null)
-        }
-        finally {
-            if (liquibase && liquibase.database) {
-                liquibase.database.close()
-            }
-        }
-        log.info("Finished running liquibase changelog(s)!")
 
         def enableFixtures = Boolean.valueOf(grailsApplication.config.openboxes.fixtures.enabled ?: true)
         log.info("Insert test fixtures?  " + enableFixtures)

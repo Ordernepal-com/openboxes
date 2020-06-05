@@ -11,7 +11,6 @@
 package org.pih.warehouse.inventory
 
 import grails.converters.JSON
-import grails.plugin.springcache.annotations.CacheFlush
 import grails.validation.ValidationException
 import groovy.time.TimeCategory
 import org.apache.commons.collections.FactoryUtils
@@ -661,11 +660,11 @@ class InventoryController {
     }
 
 
-    def getCsvForInventoryMap(map) {
+    private def getCsvForInventoryMap(map) {
         return getCsvForInventoryMap(map, [:])
     }
 
-    def getCsvForInventoryMap(map, statusMap) {
+    private def getCsvForInventoryMap(map, statusMap) {
         def csv = ""
         csv += '"' + "${warehouse.message(code: 'inventoryLevel.status.label')}" + '"' + ","
         csv += '"' + "${warehouse.message(code: 'product.productCode.label')}" + '"' + ","
@@ -718,11 +717,11 @@ class InventoryController {
         return csv
     }
 
-    def getCsvForProductMap(map) {
+    private def getCsvForProductMap(map) {
         return getCsvForProductMap(map, [:])
     }
 
-    def getCsvForProductMap(map, statusMap) {
+    private def getCsvForProductMap(map, statusMap) {
         def hasRoleFinance = userService.hasRoleFinance(session.user)
 
         def csv = ""
@@ -1132,7 +1131,6 @@ class InventoryController {
      * TRANSFER_OUT, CONSUMED, DAMAGED, EXPIRED
      */
 
-    @CacheFlush("inventoryBrowserCache")
     def saveDebitTransaction = { TransactionCommand command ->
         log.info("Saving debit transactions " + params)
         log.info("size: " + command?.transactionEntries?.size())
@@ -1217,7 +1215,6 @@ class InventoryController {
      *
      * TRANSFER_IN
      */
-    @CacheFlush("inventoryBrowserCache")
     def saveCreditTransaction = { TransactionCommand command ->
 
         log.debug("Saving credit transaction: " + params)

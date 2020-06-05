@@ -1,7 +1,7 @@
 package org.pih.warehouse.api
 
+import grails.validation.Validateable
 import org.apache.commons.lang.StringUtils
-import org.codehaus.groovy.grails.validation.Validateable
 import org.pih.warehouse.core.ActivityCode
 import org.pih.warehouse.core.Location
 import org.pih.warehouse.core.Person
@@ -13,8 +13,7 @@ import org.pih.warehouse.order.OrderItemStatusCode
 import org.pih.warehouse.product.Product
 import org.pih.warehouse.shipping.Container
 
-@Validateable
-class PutawayItem {
+class PutawayItem implements Validateable {
 
     String id
     Product product

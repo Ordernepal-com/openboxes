@@ -9,7 +9,8 @@
 **/
 package org.pih.warehouse.core
 
-import org.codehaus.groovy.grails.web.json.JSONObject
+import org.grails.web.json.JSONObject
+
 
 class TranslationService {
 

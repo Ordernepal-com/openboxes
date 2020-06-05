@@ -19,7 +19,7 @@ class ErrorsController {
     def messageSource
     MailService mailService
     def userService
-    def grailsApplication
+
 
     def handleException = {
         if (RequestUtil.isAjax(request)) {

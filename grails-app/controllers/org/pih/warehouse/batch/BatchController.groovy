@@ -33,7 +33,6 @@ class BatchController {
     def dataService
     def documentService
     def inventoryService
-    def grailsApplication
     def genericApiService
     def uploadService
 

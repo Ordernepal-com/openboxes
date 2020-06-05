@@ -10,8 +10,7 @@
 package org.pih.warehouse.order
 
 import grails.validation.ValidationException
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
-import org.grails.plugins.csv.CSVMapReader
+import grails.plugins.csv.CSVMapReader
 import org.pih.warehouse.core.*
 import org.pih.warehouse.inventory.InventoryItem
 import org.pih.warehouse.inventory.Transaction
@@ -234,10 +233,10 @@ class OrderService {
             String sequenceNumberStr = identifierService.generateSequenceNumber(sequenceNumber.toString())
 
             // Properties to be used to get argument values for the template
-            Map properties = ConfigurationHolder.config.openboxes.identifier.purchaseOrder.properties
+            Map properties = grailsApplication.config.openboxes.identifier.purchaseOrder.properties
             Map model = dataService.transformObject(order, properties)
             model.put("sequenceNumber", sequenceNumberStr)
-            String template = ConfigurationHolder.config.openboxes.identifier.purchaseOrder.format
+            String template = grailsApplication.config.openboxes.identifier.purchaseOrder.format
             return identifierService.renderTemplate(template, model)
         } catch(Exception e) {
             log.error("Error " + e.message, e)
@@ -254,7 +253,7 @@ class OrderService {
 
         if (!order.orderNumber) {
             IdentifierGeneratorTypeCode identifierGeneratorTypeCode =
-                    ConfigurationHolder.config.openboxes.identifier.purchaseOrder.generatorType
+                    grailsApplication.config.openboxes.identifier.purchaseOrder.generatorType
 
             if (identifierGeneratorTypeCode == IdentifierGeneratorTypeCode.SEQUENCE) {
                 order.orderNumber = generatePurchaseOrderSequenceNumber(order)
@@ -456,9 +455,9 @@ class OrderService {
     }
 
     void updateProductUnitPrice(OrderItem orderItem) {
-        Boolean enabled = ConfigurationHolder.config.openboxes.purchasing.updateUnitPrice.enabled
+        Boolean enabled = grailsApplication.config.openboxes.purchasing.updateUnitPrice.enabled
         if (enabled) {
-            UpdateUnitPriceMethodCode method = ConfigurationHolder.config.openboxes.purchasing.updateUnitPrice.method
+            UpdateUnitPriceMethodCode method = grailsApplication.config.openboxes.purchasing.updateUnitPrice.method
             if (method == UpdateUnitPriceMethodCode.LAST_PURCHASE_PRICE) {
                 BigDecimal pricePerPackage = orderItem.unitPrice * orderItem?.order?.lookupCurrentExchangeRate()
                 BigDecimal pricePerUnit = pricePerPackage / orderItem?.quantityPerUom

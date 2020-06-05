@@ -9,7 +9,7 @@
  **/
 package org.pih.warehouse.order
 
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
+import grails.util.Holders
 import org.pih.warehouse.auth.AuthService
 import org.pih.warehouse.core.*
 import org.pih.warehouse.shipping.Shipment
@@ -179,7 +179,7 @@ class Order implements Serializable {
     }
 
     Boolean getIsApprovalRequired() {
-        BigDecimal minimumAmount = ConfigurationHolder.config.openboxes.purchasing.approval.minimumAmount
+        BigDecimal minimumAmount = Holders.getGrailsApplication().config.openboxes.purchasing.approval.minimumAmount
         return (origin?.supports([ActivityCode.APPROVE_ORDER]) ||
                 destination?.supports(ActivityCode.APPROVE_ORDER)) && total > minimumAmount
     }
@@ -305,7 +305,7 @@ class Order implements Serializable {
 
         // Otherwise find a suitable exchange rate from the UomConversion table (or default to 1.0)
         BigDecimal currentExchangeRate
-        String defaultCurrencyCode = ConfigurationHolder.config.openboxes.locale.defaultCurrencyCode
+        String defaultCurrencyCode = Holders.getGrailsApplication().config.openboxes.locale.defaultCurrencyCode
         if (currencyCode != defaultCurrencyCode) {
             currentExchangeRate = UnitOfMeasureConversion.conversionRateLookup(defaultCurrencyCode, currencyCode).list()
         }

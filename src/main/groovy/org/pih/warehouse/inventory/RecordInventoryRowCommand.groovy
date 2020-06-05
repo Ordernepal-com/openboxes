@@ -9,11 +9,10 @@
  **/
 package org.pih.warehouse.inventory
 
-import org.codehaus.groovy.grails.validation.Validateable
+import grails.validation.Validateable
 import org.pih.warehouse.core.Location
 
-@Validateable
-class RecordInventoryRowCommand {
+class RecordInventoryRowCommand implements Validateable {
     String id
     String lotNumber
     Location binLocation

@@ -9,14 +9,15 @@
  **/
 package org.pih.warehouse.importer
 
-
-import org.codehaus.groovy.grails.commons.ApplicationHolder
+import grails.util.Holders
 import org.grails.plugins.excelimport.AbstractExcelImporter
-import org.grails.plugins.excelimport.ExcelImportUtils
+import org.grails.plugins.excelimport.ExcelImportService
+import org.grails.plugins.excelimport.ExpectedPropertyType
 
 class InventoryExcelImporter extends AbstractExcelImporter {
 
     def inventoryService
+    ExcelImportService excelImportService
 
     static Map cellMap = [sheet: 'Sheet1', startRow: 1, cellMap: []]
 
@@ -37,26 +38,26 @@ class InventoryExcelImporter extends AbstractExcelImporter {
     ]
 
     static Map propertyMap = [
-            productCode     : ([expectedType: ExcelImportUtils.PROPERTY_TYPE_STRING, defaultValue: null]),
-            product         : ([expectedType: ExcelImportUtils.PROPERTY_TYPE_STRING, defaultValue: null]),
-            lotNumber       : ([expectedType: ExcelImportUtils.PROPERTY_TYPE_STRING, defaultValue: null]),
-            expirationDate  : ([expectedType: ExcelImportUtils.PROPERTY_TYPE_STRING, defaultValue: null]),
-            manufacturer    : ([expectedType: ExcelImportUtils.PROPERTY_TYPE_STRING, defaultValue: null]),
-            manufacturerCode: ([expectedType: ExcelImportUtils.PROPERTY_TYPE_STRING, defaultValue: null]),
-            quantity        : ([expectedType: ExcelImportUtils.PROPERTY_TYPE_STRING, defaultValue: null]),
-            binLocation     : ([expectedType: ExcelImportUtils.PROPERTY_TYPE_STRING, defaultValue: null]),
-            comments        : ([expectedType: ExcelImportUtils.PROPERTY_TYPE_STRING, defaultValue: null])
+            productCode     : ([expectedType: ExpectedPropertyType.StringType, defaultValue: null]),
+            product         : ([expectedType: ExpectedPropertyType.StringType, defaultValue: null]),
+            lotNumber       : ([expectedType: ExpectedPropertyType.StringType, defaultValue: null]),
+            expirationDate  : ([expectedType: ExpectedPropertyType.StringType, defaultValue: null]),
+            manufacturer    : ([expectedType: ExpectedPropertyType.StringType, defaultValue: null]),
+            manufacturerCode: ([expectedType: ExpectedPropertyType.StringType, defaultValue: null]),
+            quantity        : ([expectedType: ExpectedPropertyType.StringType, defaultValue: null]),
+            binLocation     : ([expectedType: ExpectedPropertyType.StringType, defaultValue: null]),
+            comments        : ([expectedType: ExpectedPropertyType.StringType, defaultValue: null])
     ]
 
 
     InventoryExcelImporter(String fileName) {
         super(fileName)
-        inventoryService = ApplicationHolder.getApplication().getMainContext().getBean("inventoryService")
+        inventoryService = Holders.getGrailsApplication().getMainContext().getBean("inventoryService")
     }
 
 
     List<Map> getData() {
-        return ExcelImportUtils.convertColumnMapConfigManyRows(workbook, columnMap, null, propertyMap)
+        return excelImportService.convertColumnMapConfigManyRows(workbook, columnMap, null,null , propertyMap)
     }
 
 

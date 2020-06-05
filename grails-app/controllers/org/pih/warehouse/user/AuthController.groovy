@@ -21,7 +21,7 @@ class AuthController {
     MailService mailService
     def userService
     def authService
-    def grailsApplication
+
 
     static allowedMethods = [login: "GET", doLogin: "POST", logout: "GET"]
 

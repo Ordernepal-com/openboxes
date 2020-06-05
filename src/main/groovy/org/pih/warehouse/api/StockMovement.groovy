@@ -1,9 +1,9 @@
 package org.pih.warehouse.api
 
+import grails.util.Holders
+import grails.validation.Validateable
 import org.apache.commons.collections.FactoryUtils
 import org.apache.commons.collections.list.LazyList
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
-import org.codehaus.groovy.grails.validation.Validateable
 import org.pih.warehouse.core.ActivityCode
 import org.pih.warehouse.core.Constants
 import org.pih.warehouse.core.Location
@@ -34,8 +34,7 @@ enum StockMovementType {
     }
 }
 
-@Validateable
-class StockMovement {
+class StockMovement implements Validateable{
 
     String id
     String name
@@ -190,7 +189,7 @@ class StockMovement {
      */
     String generateName() {
         final String separator =
-                ConfigurationHolder.config.openboxes.generateName.separator ?: Constants.DEFAULT_NAME_SEPARATOR
+                Holders.getGrailsApplication().config.openboxes.generateName.separator ?: Constants.DEFAULT_NAME_SEPARATOR
 
         String originIdentifier = origin?.locationNumber ?: origin?.name
         String destinationIdentifier = destination?.locationNumber ?: destination?.name

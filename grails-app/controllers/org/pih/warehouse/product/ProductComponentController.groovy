@@ -9,8 +9,10 @@
  **/
 package org.pih.warehouse.product
 
+import grails.artefact.DomainClass
+
 class ProductComponentController {
 
-    def scaffold = true
+    def scaffold = DomainClass
 
 }

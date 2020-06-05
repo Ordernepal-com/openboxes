@@ -9,13 +9,15 @@
  **/
 package org.pih.warehouse.importer
 
-import org.codehaus.groovy.grails.commons.ApplicationHolder
+import grails.util.Holders
 import org.grails.plugins.excelimport.AbstractExcelImporter
-import org.grails.plugins.excelimport.ExcelImportUtils
+import org.grails.plugins.excelimport.ExcelImportService
+import org.grails.plugins.excelimport.ExpectedPropertyType
 
 class ProductExcelImporter extends AbstractExcelImporter {
 
     def productService
+    ExcelImportService excelImportService
 
     static Map cellMap = [
             sheet: 'Sheet1', startRow: 1, cellMap: []]
@@ -39,31 +41,30 @@ class ProductExcelImporter extends AbstractExcelImporter {
     ]
 
     static Map propertyMap = [
-            idaCode           : ([expectedType: ExcelImportUtils.PROPERTY_TYPE_STRING, defaultValue: null]),
-            openBoxesId       : ([expectedType: ExcelImportUtils.PROPERTY_TYPE_STRING, defaultValue: null]),
-            productDescription: ([expectedType: ExcelImportUtils.PROPERTY_TYPE_STRING, defaultValue: null]),
-            french            : ([expectedType: ExcelImportUtils.PROPERTY_TYPE_STRING, defaultValue: null]),
-            search1           : ([expectedType: ExcelImportUtils.PROPERTY_TYPE_STRING, defaultValue: null]),
-            search2           : ([expectedType: ExcelImportUtils.PROPERTY_TYPE_STRING, defaultValue: null]),
-            packaging         : ([expectedType: ExcelImportUtils.PROPERTY_TYPE_STRING, defaultValue: null]),
-            unit              : ([expectedType: ExcelImportUtils.PROPERTY_TYPE_STRING, defaultValue: null]),
-            manufacturer      : ([expectedType: ExcelImportUtils.PROPERTY_TYPE_STRING, defaultValue: null]),
-            comment           : ([expectedType: ExcelImportUtils.PROPERTY_TYPE_STRING, defaultValue: null]),
-            code              : ([expectedType: ExcelImportUtils.PROPERTY_TYPE_STRING, defaultValue: null])
+            idaCode           : ([expectedType: ExpectedPropertyType.StringType, defaultValue: null]),
+            openBoxesId       : ([expectedType: ExpectedPropertyType.StringType, defaultValue: null]),
+            productDescription: ([expectedType: ExpectedPropertyType.StringType, defaultValue: null]),
+            french            : ([expectedType: ExpectedPropertyType.StringType, defaultValue: null]),
+            search1           : ([expectedType: ExpectedPropertyType.StringType, defaultValue: null]),
+            search2           : ([expectedType: ExpectedPropertyType.StringType, defaultValue: null]),
+            packaging         : ([expectedType: ExpectedPropertyType.StringType, defaultValue: null]),
+            unit              : ([expectedType: ExpectedPropertyType.StringType, defaultValue: null]),
+            manufacturer      : ([expectedType: ExpectedPropertyType.StringType, defaultValue: null]),
+            comment           : ([expectedType: ExpectedPropertyType.StringType, defaultValue: null]),
+            code              : ([expectedType: ExpectedPropertyType.StringType, defaultValue: null])
     ]
 
 
     ProductExcelImporter(String fileName) {
         super(fileName)
-        productService = ApplicationHolder.getApplication().getMainContext().getBean("productService")
+        productService = Holders.getGrailsApplication().getMainContext().getBean("productService")
     }
 
 
     List<Map> getData() {
-        return ExcelImportUtils.convertColumnMapConfigManyRows(workbook, columnMap, null, propertyMap)
+        return excelImportService.convertColumnMapConfigManyRows(workbook, columnMap, null, null, propertyMap)
     }
-
-
+    
     void validateData(ImportDataCommand command) {
         productService.validateData(command)
     }

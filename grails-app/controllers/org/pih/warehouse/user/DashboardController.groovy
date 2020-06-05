@@ -10,10 +10,7 @@
 package org.pih.warehouse.user
 
 import grails.converters.JSON
-import grails.plugin.springcache.annotations.CacheFlush
-import grails.plugin.springcache.annotations.Cacheable
 import org.apache.commons.lang.StringEscapeUtils
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
 import org.pih.warehouse.core.Comment
 import org.pih.warehouse.core.Location
 import org.pih.warehouse.core.Tag
@@ -42,7 +39,6 @@ class DashboardController {
     def requisitionService
     def userService
     def sessionFactory
-    def grailsApplication
     def locationService
 
     def showCacheStatistics = {
@@ -107,8 +103,8 @@ class DashboardController {
 
     }
     def throwException = {
-        println "Configuration: " + ConfigurationHolder.config.grails
-        println "Configuration: " + ConfigurationHolder.config.grails.mail
+        println "Configuration: " + grailsApplication.config.grails
+        println "Configuration: " + grailsApplication.config.grails.mail
         try {
             throw new RuntimeException("error of some kind")
         } catch (RuntimeException e) {
@@ -131,7 +127,7 @@ class DashboardController {
 
         log.info "dashboard.index Response time: " + (System.currentTimeMillis() - startTime) + " ms"
 
-        def newsItems = ConfigurationHolder.config.openboxes.dashboard.newsSummary.newsItems
+        def newsItems = grailsApplication.config.openboxes.dashboard.newsSummary.newsItems
 
 
         [
@@ -230,9 +226,6 @@ class DashboardController {
         ]
     }
 
-    @CacheFlush(["dashboardCache", "megamenuCache", "inventoryBrowserCache", "fastMoversCache",
-            "binLocationReportCache", "binLocationSummaryCache", "quantityOnHandCache", "selectTagCache",
-            "selectTagsCache", "selectCategoryCache", "selectCatalogsCache"])
     def flushCache = {
         flash.message = "Data caches have been flushed and inventory snapshot job was triggered"
         RefreshInventorySnapshotJob.triggerNow([location: session.warehouse.id, user: session.user.id, forceRefresh: false])

@@ -11,8 +11,6 @@ package org.pih.warehouse.core
 
 import org.apache.commons.lang.math.NumberUtils
 import org.apache.commons.lang.text.StrSubstitutor
-import org.codehaus.groovy.grails.commons.ApplicationHolder
-import org.codehaus.groovy.grails.commons.DefaultGrailsDomainClass
 import org.docx4j.TextUtils
 import org.docx4j.XmlUtils
 import org.docx4j.convert.out.pdf.PdfConversion
@@ -40,6 +38,7 @@ import org.docx4j.wml.Tc
 import org.docx4j.wml.Text
 import org.docx4j.wml.Tr
 import org.docx4j.wml.TrPr
+import org.grails.core.DefaultGrailsDomainClass
 import org.pih.warehouse.FormatTagLib
 import org.pih.warehouse.shipping.ReferenceNumber
 import org.pih.warehouse.shipping.ReferenceNumberType

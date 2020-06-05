@@ -10,7 +10,6 @@
 package org.pih.warehouse.jobs
 
 
-import grails.plugin.quartz2.TriggerHelper
 import org.quartz.JobDetail
 import org.quartz.JobKey
 import org.quartz.Trigger

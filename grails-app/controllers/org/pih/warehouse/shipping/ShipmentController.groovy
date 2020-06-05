@@ -8,8 +8,7 @@
  * You must not remove this notice, or any other, from this software.
  **/
 package org.pih.warehouse.shipping
-
-import au.com.bytecode.opencsv.CSVWriter
+import liquibase.util.csv.opencsv.CSVWriter
 import grails.validation.ValidationException
 import groovy.sql.Sql
 import org.krysalis.barcode4j.impl.code128.Code128Bean

@@ -9,7 +9,7 @@
  **/
 package org.pih.warehouse.core
 
-import org.grails.plugins.csv.CSVWriter
+import liquibase.util.csv.opencsv.CSVWriter
 import org.pih.warehouse.inventory.InventoryItem
 import org.pih.warehouse.inventory.InventoryLevel
 import org.pih.warehouse.inventory.InventoryStatus

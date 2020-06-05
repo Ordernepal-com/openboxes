@@ -1,28 +1,29 @@
 package org.pih.warehouse.jobs
 
-import org.codehaus.groovy.grails.commons.ConfigurationHolder as CH
+import grails.core.GrailsApplication
+import liquibase.util.LiquibaseUtil
 import org.pih.warehouse.core.Location
 import org.pih.warehouse.core.User
 import org.pih.warehouse.product.Product
 import org.quartz.DisallowConcurrentExecution
 import org.quartz.JobExecutionContext
-import util.LiquibaseUtil
 
 @DisallowConcurrentExecution
 class CalculateQuantityJob {
 
     def concurrent = false
     def inventorySnapshotService
+    GrailsApplication grailsApplication
 
     // cron job needs to be triggered after the staging deployment
     static triggers = {
         cron name: 'calculateQuantityCronTrigger',
-                cronExpression: CH.config.openboxes.jobs.calculateQuantityJob.cronExpression
+                cronExpression: grailsApplication.config.openboxes.jobs.calculateQuantityJob.cronExpression
     }
 
     def execute(JobExecutionContext context) {
 
-        Boolean enabled = CH.config.openboxes.jobs.calculateQuantityJob.enabled
+        Boolean enabled = grailsApplication.config.openboxes.jobs.calculateQuantityJob.enabled
         if (!enabled) {
             return
         }
@@ -76,7 +77,7 @@ class CalculateQuantityJob {
                 if (forceRefresh) {
                     inventorySnapshotService.deleteInventorySnapshots(date)
                 }
-                boolean enableOptimization = CH.config.openboxes.jobs.calculateQuantityJob.enableOptimization
+                boolean enableOptimization = grailsApplication.config.openboxes.jobs.calculateQuantityJob.enableOptimization
                 inventorySnapshotService.populateInventorySnapshots(date, enableOptimization)
             }
         }

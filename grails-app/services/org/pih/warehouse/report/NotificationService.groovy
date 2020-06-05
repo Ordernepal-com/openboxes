@@ -9,9 +9,9 @@
 **/
 package org.pih.warehouse.report
 
-import org.codehaus.groovy.grails.plugins.web.taglib.RenderTagLib
-import org.codehaus.groovy.grails.web.context.ServletContextHolder
-import org.codehaus.groovy.grails.web.errors.GrailsWrappedRuntimeException
+import grails.web.context.ServletContextHolder
+import org.grails.plugins.web.taglib.RenderTagLib
+import org.grails.web.errors.GrailsWrappedRuntimeException
 import org.pih.warehouse.core.Location
 import org.pih.warehouse.core.MailService
 import org.pih.warehouse.core.RoleType

@@ -10,12 +10,13 @@
 package org.pih.warehouse.importer
 
 import org.grails.plugins.excelimport.AbstractExcelImporter
-import org.grails.plugins.excelimport.ExcelImportUtils
+import org.grails.plugins.excelimport.ExcelImportService
+import org.grails.plugins.excelimport.ExpectedPropertyType
 import org.pih.warehouse.core.Tag
 import org.springframework.validation.BeanPropertyBindingResult
 
 class TagExcelImporter extends AbstractExcelImporter {
-
+    ExcelImportService excelImportService
     static Map columnMap = [
             sheet    : 'Sheet1',
             startRow : 1,
@@ -26,8 +27,8 @@ class TagExcelImporter extends AbstractExcelImporter {
     ]
 
     static Map propertyMap = [
-            id : ([expectedType: ExcelImportUtils.PROPERTY_TYPE_STRING, defaultValue: null]),
-            tag: ([expectedType: ExcelImportUtils.PROPERTY_TYPE_STRING, defaultValue: null])
+            id : ([expectedType: ExpectedPropertyType.StringType, defaultValue: null]),
+            tag: ([expectedType: ExpectedPropertyType.StringType, defaultValue: null])
     ]
 
     TagExcelImporter(String fileName) {
@@ -35,7 +36,7 @@ class TagExcelImporter extends AbstractExcelImporter {
     }
 
     List<Map> getData() {
-        return ExcelImportUtils.convertColumnMapConfigManyRows(workbook, columnMap, null, propertyMap)
+        return excelImportService.convertColumnMapConfigManyRows(workbook, columnMap,null, null, propertyMap)
     }
 
     void validateData(ImportDataCommand command) {

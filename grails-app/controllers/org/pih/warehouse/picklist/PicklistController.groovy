@@ -9,16 +9,15 @@
  */
 package org.pih.warehouse.picklist
 
+import grails.artefact.DomainClass
 import grails.converters.JSON
 import org.pih.warehouse.core.Location
 import org.pih.warehouse.requisition.Requisition
 
 class PicklistController {
 
-    def scaffold = true
-
+    def scaffold = DomainClass
     def picklistService
-    def pdfRenderingService
 
     def save = {
         def jsonRequest = request.JSON
